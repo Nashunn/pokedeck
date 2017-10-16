@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class Game {
     public Game() {
-        
+        //todo
     }
     
     public void initialize(ArrayList<String> players_name) {
