@@ -1,0 +1,55 @@
+----------------------------
+Projet JAVA : POKEDECK
+----------------------------
+
+* Les types d'éléments : 
+	Plusieurs types disponible :
+		- Grass
+		- Fire
+		- Water
+		- Linghtning
+		- Psychic
+		- Fighting
+		- Darkness
+		- Metal
+		- Fairy
+		- Dragon
+		- Colorless
+
+* Les particularités des cartes :
+	Carte Pokemon :
+		- Pokemon type
+		- Card name
+		- Card type
+		- HP
+		- Stage
+		- Attaques (tableau avec 2 objets attaque ?)
+		- Evolves from
+		- Weakness type (ajout ?)
+		- Resistance type (ajout ?)
+		- Collector card number
+		- Expansion symbol
+	Carte Trainer :
+		- Trainer type
+		- Card name
+		- Card type
+		- Explication text
+		- Trainer rule
+	Carte Energy :
+		- Card name (ajout ? auto avec le nom de l'energy)
+		- Card type
+		- Energy type
+Qu'ont-elles en commun ? Card type, Special type (Energy, Trainer et Pokemon) et possiblement Card name si on l'ajoute aux energy aussi
+
+* Construction d'un deck (60 cartes exactement):
+	- 18 à 22 cartes energy en moyenne (disons 20), on peut choisir un type particulier a mettre en avant (fire, plant, ..)
+	- 13 à 20 cartes trainer en moyenne (disons 16)
+	- 24 pokemons à mettre si on suit les nombres d'avant
+	/!\ Exception à prendre en compte :
+		- 4 cartes avec le même nom maximum dans un deck (sauf energy)
+		- 1 Pokemon 'basic' (qui n'est pas une évolution) au moins
+		
+* Specification pour le deck : 
+	deux façon de le construire :
+		- Comme une collection : pas de limite de cartes
+		- Comme un deck de jeu : limite de cartes à 60
