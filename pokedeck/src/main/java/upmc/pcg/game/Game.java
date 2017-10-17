@@ -8,13 +8,17 @@ package upmc.pcg.game;
 import java.util.*;
 
 /*
- * Game
+ * Game contains all the methods to run the game 
  */
 public class Game {
-    public Game() {
-        //todo
-    }
+    /**
+     * Default constructor
+     */
+    public Game() {}
     
+    /**
+     * 
+     */
     public void initialize(ArrayList<String> players_name) {
       //....
     }

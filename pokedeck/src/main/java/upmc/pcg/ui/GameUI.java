@@ -9,12 +9,15 @@ import java.util.*;
 import upmc.pcg.game.Game;
 
 /*
- * GameUI
+ * GameUI does the link between the game and users
  */
 public class GameUI {
     private final Game game = new Game();
     private final Scanner console = new Scanner(System.in);
 
+    /**
+     * Initialize the game and start it
+     */
     public void start() {
         print_welcome_msg();
         ArrayList<String> names = ask_players_names();
@@ -22,11 +25,68 @@ public class GameUI {
         game.play();
     }
 
+    /**
+     * Ask the name of all the players recursively and return them in an array
+     */
     private ArrayList<String> ask_players_names() {
+        List<String> names = new ArrayList<String>();
+        boolean boolAskName = true;
+        
+        System.out.println("****************************");
+        System.out.println("Prof. Oak : This is the first time i see you here !");
+        
+        while(boolAskName) {
+            names.add(prof_ask_name());
+            boolAskName = menu_prof_other_name();
+        }
+
+        System.out.println("Prof. Oak : Ok, so let's see your collection now !");
+        System.out.println("****************************");
         return new ArrayList<>();
     }
+    
+    /**
+    * Ask ONE player his name
+    */
+    private String prof_ask_name() {
+        String playerName = "";
+        
+        while(playerName.equals("")) {
+            System.out.println("Prof. Oak : What's your name ? ");
+            playerName = console.nextLine();
+        }
+        System.out.println("Prof. Oak : "+playerName+", what a beautiful name ! ");
+        
+        return new String();
+    }
+    
+    /**
+     * Display a menu that ask if it needs another name
+     */
+    private boolean menu_prof_other_name() {
+        boolean boolOtherName = false;
+        String response = "";
+        
+        while(response.equals("") && (!response.equals("y") && !response.equals("n"))) {
+            System.out.println("Prof. Oak : Do you have another friend with you ? (y/n)");
+            response = console.nextLine();
+        }
+        
+        if(response.equals("y"))
+            boolOtherName = true;
+        
+        return boolOtherName;
+    }
 
+    /**
+     * Explicit
+     */
     private void print_welcome_msg() {
-        //todo
+        System.out.println("****************************");
+        System.out.println("* POKEDECK"); 
+        System.out.println("****************************");
+        System.out.println("Welcome in the pokedeck !\nHere you can create your own cards,");
+        System.out.println("save, modify and manage your collection !\n");
+        System.out.println("Have fun !\n");
     }
 }
