@@ -9,18 +9,21 @@ import java.util.*;
 
 /*
  * Game contains all the methods to run the game 
+ * @author Nicolas & Gabin
  */
 public class Game {
+    //Declaration Collection(name), etc
+    
     /**
      * Default constructor
      */
     public Game() {}
     
     /**
-     * 
+     * Initialize attributes to begin the game
      */
     public void initialize(ArrayList<String> players_name) {
-      //....
+      
     }
     
     public void play() {

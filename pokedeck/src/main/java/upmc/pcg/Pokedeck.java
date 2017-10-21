@@ -9,6 +9,7 @@ import upmc.pcg.ui.GameUI;
 
 /*
  * Pokedeck is the main class of the project, implementing the main method
+ * @author Nicolas & Gabin
  */
 public class Pokedeck {
     public static void main(String[] args) {

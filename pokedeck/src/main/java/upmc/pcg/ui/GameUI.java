@@ -10,6 +10,7 @@ import upmc.pcg.game.Game;
 
 /*
  * GameUI does the link between the game and users
+ * @author Nicolas & Gabin
  */
 public class GameUI {
     private final Game game = new Game();
@@ -39,7 +40,7 @@ public class GameUI {
             names.add(prof_ask_name());
             boolAskName = menu_prof_other_name();
         }
-
+        
         System.out.println("Prof. Oak : Ok, so let's see your collection now !");
         System.out.println("****************************");
         return new ArrayList<>();
