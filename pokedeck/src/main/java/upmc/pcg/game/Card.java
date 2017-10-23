@@ -6,21 +6,19 @@
 package upmc.pcg.game;
 
 /**
- * Card is a general representation for all type of pokemon cards
+ * Card is an abstract representation of all types of pokemon cards
  * @author Nicolas & Gabin
  */
-public class Card {
+public abstract class Card {
     protected String name = "Default";
     protected String cardType;
     protected String specialType; //Pokemon type, Trainer type or Energy type
     public static String CARD_TYPES[] = {"pokemon", "trainer", "energy"};
     
     /**
-     * Constructor which take the name of the card, type and specialType
+     * Return the name of the card in the form of a string
      */
-    public Card(String name, String cardType, String specialType) {
-        this.name = name;
-        this.cardType = cardType;
-        this.specialType = specialType;
+    public String get_name() {
+        return this.name;
     }
 }

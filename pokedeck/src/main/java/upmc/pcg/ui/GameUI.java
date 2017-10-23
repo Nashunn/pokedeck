@@ -30,7 +30,7 @@ public class GameUI {
      * Ask the name of all the players recursively and return them in an array
      */
     private ArrayList<String> ask_players_names() {
-        List<String> names = new ArrayList<String>();
+        ArrayList<String> names = new ArrayList<String>();
         boolean boolAskName = true;
         
         System.out.println("****************************");
@@ -42,8 +42,7 @@ public class GameUI {
         }
         
         System.out.println("Prof. Oak : Ok, so let's see your collection now !");
-        System.out.println("****************************");
-        return new ArrayList<>();
+        return names;
     }
     
     /**
@@ -58,7 +57,7 @@ public class GameUI {
         }
         System.out.println("Prof. Oak : "+playerName+", what a beautiful name ! ");
         
-        return new String();
+        return playerName;
     }
     
     /**

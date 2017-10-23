@@ -6,13 +6,17 @@
 package upmc.pcg.game;
 
 import java.util.*;
+import upmc.pcg.ui.MenuUI;
 
 /*
  * Game contains all the methods to run the game 
  * @author Nicolas & Gabin
  */
 public class Game {
-    //Declaration Collection(name), etc
+    private HashMap<String, Collection> collections = new HashMap<String, Collection>();
+    private ArrayList<String> players_name;
+    private String currentPlayer="Unknown";
+    private boolean boolQuitGame = false;
     
     /**
      * Default constructor
@@ -21,12 +25,53 @@ public class Game {
     
     /**
      * Initialize attributes to begin the game
+     * Note : For this version, only the first player can have a collection and play
      */
-    public void initialize(ArrayList<String> players_name) {
-      
+    public void initialize(ArrayList<String> par_players_name) {
+        players_name = par_players_name;
+        currentPlayer = players_name.get(0);
+        
+        Collection collectionPlayer = new Collection(currentPlayer);
+        collections.put(currentPlayer, collectionPlayer);  
     }
     
+    /**
+     * Main method for the game
+     */
     public void play() {
-      //...
+        int collectionMenuChoice = -1;
+        
+        while(!boolQuitGame) {
+            collectionMenuChoice = MenuUI.collection_main_menu(currentPlayer);
+            switch_collection_main_menu_choice(collectionMenuChoice);
+        }
+    }
+    
+    /**
+     * Does actions base on the choice made by the player in the collection main menu
+     */
+    private void switch_collection_main_menu_choice(int menuChoice) {
+        switch(menuChoice) {
+            //Add a card
+            case 1:
+                System.out.println("TODO");
+                break;
+            //Consult collection
+            case 2:
+                MenuUI.collection_consult_menu(collections.get(currentPlayer));
+                break;
+            //Search cards by criteria
+            case 3:
+                System.out.println("TODO");
+                break;
+            //Quit the game
+            case 4:
+                boolQuitGame = true;
+                break;
+            //Default
+            default:
+                System.out.println("(!) Invalid choice");
+                break;
+        }
     }
 }

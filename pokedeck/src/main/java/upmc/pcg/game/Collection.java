@@ -6,6 +6,7 @@
 package upmc.pcg.game;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -21,5 +22,29 @@ public class Collection {
      */
     public Collection(String name) {
         this.owner = name;
+    }
+    
+    /**
+     * Display all cards in the collection in the form of a list
+     */
+    public void list_all_cards(){
+        Iterator<Card> cardIterator = cards.iterator();
+        
+        for(int cardIndex = 0; cardIterator.hasNext(); cardIndex++) {
+            Card card = cardIterator.next();
+            cardIndex++;
+            System.out.println(cardIndex+". "+card.get_name());
+        }
+    }
+    
+    /**
+     * Return the card saved at index position in the list
+     */
+    public Card get_card(int index) {
+        return cards.get(index);
+    }
+    
+    public int get_size() {
+        return cards.size();
     }
 }
