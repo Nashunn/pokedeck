@@ -9,7 +9,7 @@ package upmc.pcg.game;
  * EnergyCard is a representation of pokemon energy card
  * @author Nicolas & Gabin
  */
-public class EnergyCard {
+public class EnergyCard extends Card {
     public static String ENERGY_TYPES[] = {
         "Grass",
         "Fire",
@@ -23,4 +23,9 @@ public class EnergyCard {
         "Dragon",
         "Colorless"
     };
+
+    @Override
+    public void create() {
+        System.out.println("TODO : creation of energy card");
+    }
 }

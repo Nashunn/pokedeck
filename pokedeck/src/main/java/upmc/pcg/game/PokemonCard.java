@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * PokemonCard is a representation of pokemon card
  * @author Nicolas & Gabin
  */
-public class PokemonCard {
+public class PokemonCard extends Card {
     private int hp;
     private int stage;
     private ArrayList<Attack> attacks = new ArrayList<Attack>();
@@ -19,4 +19,13 @@ public class PokemonCard {
     private String weaknessType;
     private String resistanceType;
     private int cardNb;
+    
+    public PokemonCard() {};
+
+    @Override
+    public void create() {
+        System.out.println("TODO : creation of pokemon card");
+    }
+    
+    
 }

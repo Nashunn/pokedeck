@@ -21,4 +21,9 @@ public abstract class Card {
     public String get_name() {
         return this.name;
     }
+    
+    /**
+     * Create a card (pokemon, trainer or energy)
+     */
+    public abstract void create();
 }

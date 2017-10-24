@@ -9,8 +9,13 @@ package upmc.pcg.game;
  * TrainerCard is a representation of pokemon trainer card
  * @author Nicolas & Gabin
  */
-public class TrainerCard {
+public class TrainerCard extends Card {
     private String explanation;
     private String trainer;
     public static String TRAINER_TYPES[] = {"item", "supporter", "stadium"}; 
+
+    @Override
+    public void create() {
+        System.out.println("TODO : creation of trainer card");
+    }
 }

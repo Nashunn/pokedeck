@@ -32,10 +32,17 @@ public class Collection {
         
         for(int cardIndex = 0; cardIterator.hasNext(); cardIndex++) {
             Card card = cardIterator.next();
-            System.out.println(cardIndex+". "+card.get_name());
+            System.out.println((cardIndex+1)+". "+card.get_name());
         }
     }
     
+    /**
+     * Add a card in the collection
+     */
+    public void add_card(Card newCard){
+        cards.add(newCard);
+    }
+       
     /**
      * Return the card saved at index position in the list
      */
@@ -43,6 +50,9 @@ public class Collection {
         return cards.get(index);
     }
     
+    /**
+     * Return the size of the collection
+     */
     public int get_size() {
         return cards.size();
     }

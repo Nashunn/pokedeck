@@ -15,7 +15,8 @@ import upmc.pcg.ui.MenuUI;
 public class Game {
     private HashMap<String, Collection> collections = new HashMap<String, Collection>();
     private ArrayList<String> players_name;
-    private String currentPlayer="Unknown";
+    private String currentPlayer = "Unknown";
+    private Collection currentCollection;
     private boolean boolQuitGame = false;
     
     /**
@@ -32,7 +33,8 @@ public class Game {
         currentPlayer = players_name.get(0);
         
         Collection collectionPlayer = new Collection(currentPlayer);
-        collections.put(currentPlayer, collectionPlayer);  
+        collections.put(currentPlayer, collectionPlayer);
+        currentCollection = collections.get(currentPlayer);
     }
     
     /**
@@ -54,11 +56,12 @@ public class Game {
         switch(menuChoice) {
             //Add a card
             case 1:
-                System.out.println("TODO");
+                currentCollection.add_card(MenuUI.add_card_menu());
                 break;
             //Consult collection
             case 2:
-                MenuUI.collection_consult_menu(collections.get(currentPlayer));
+                // todo : get the returned card and do the next step after we get a card (card not null)
+                MenuUI.collection_consult_menu(currentCollection); 
                 break;
             //Search cards by criteria
             case 3:
