@@ -32,7 +32,6 @@ public class Collection {
         
         for(int cardIndex = 0; cardIterator.hasNext(); cardIndex++) {
             Card card = cardIterator.next();
-            cardIndex++;
             System.out.println(cardIndex+". "+card.get_name());
         }
     }
