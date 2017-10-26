@@ -5,7 +5,12 @@
 
 package upmc.pcg.game;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
+import upmc.pcg.ui.MenuUI;
 
 /**
  * PokemonCard is a representation of pokemon card
@@ -22,10 +27,44 @@ public class PokemonCard extends Card {
     
     public PokemonCard() {};
 
+    /**
+     * Create a pokemon card with every attributes
+     */
     @Override
     public void create() {
-        System.out.println("TODO : creation of pokemon card");
+        HashMap<String, Class> cardAttributes = new HashMap<>();
+        ArrayList attributesValues = new ArrayList();
+        
+        MenuUI.print_create_card_msg("pokemon");
+        cardAttributes = get_card_attributes();
+        attributesValues = MenuUI.ask_card_attributes_values(cardAttributes);
     }
     
+    /**
+     * Get every attributes of the card with their type, except when they are static   
+     */
+    private static HashMap<String, Class> get_card_attributes() {
+        Field parentFieldsArray[] = Card.class.getDeclaredFields();
+        Field childFieldsArray[] = PokemonCard.class.getDeclaredFields();
+        HashMap<String, Class> resultFieldsArray = new HashMap<>();
+        
+        resultFieldsArray.putAll(get_non_static_attributes_from(parentFieldsArray));
+        resultFieldsArray.putAll(get_non_static_attributes_from(childFieldsArray));
+        
+        return resultFieldsArray;
+    }
     
+    /**
+     * Explicit 
+     */
+    private static HashMap<String, Class> get_non_static_attributes_from(Field fieldsArray[]) {
+        HashMap<String, Class> resultFieldsArray = new HashMap<>();
+        
+        for(Field field : fieldsArray) {
+            if (!Modifier.isStatic(field.getModifiers()))
+                resultFieldsArray.put(field.getName(), field.getType());
+        }
+        
+        return resultFieldsArray;
+    }
 }

@@ -5,8 +5,13 @@
 
 package upmc.pcg.ui;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.ListIterator;
+import java.util.Map;
 import java.util.Scanner;
 import upmc.pcg.game.Card;
 import upmc.pcg.game.Collection;
@@ -31,8 +36,7 @@ public final class MenuUI {
         int choiceMenu = -1;
         
         print_collection_menu_msg(playerName);
-        while(choiceMenu == -1 && !(choiceMenu>=1 && choiceMenu <=4))
-            choiceMenu = ask_collection_menu();
+        choiceMenu = ask_collection_menu();
         
         return choiceMenu;
     }    
@@ -55,10 +59,18 @@ public final class MenuUI {
      * Ask the player what choice he want to do in the collection main menu
      */
     private static int ask_collection_menu() {
-        int choice = -1;
+        int choice = 0;
         
-        System.out.println("\nYour choice ? ");
-        choice = console.nextInt();
+        do {
+            try {
+                System.out.println("\nYour choice ?");
+                choice = console.nextInt();
+            }
+            catch (InputMismatchException e) {
+                System.out.print("(!) Select a number !\n");
+                console.nextLine();
+            }
+        }while(!(choice>=1 && choice <=4));
         
         return choice;
     }
@@ -122,8 +134,14 @@ public final class MenuUI {
         }
         
         while(choice == 0 && !(choice >= 1 && choice <= tabTypes.length)) {
-            System.out.println("\nYour choice ? ");
-            choice = console.nextInt();
+            try {
+                System.out.println("\nYour choice ? ");
+                choice = console.nextInt();
+            }
+            catch (InputMismatchException e) {
+                System.out.print("(!) Select a number !\n");
+                console.nextLine();
+            }
         }
         
         return tabTypes[choice-1];
@@ -190,8 +208,14 @@ public final class MenuUI {
         boolean boolIndexOk = false;
         
         while(!boolIndexOk) {
-            System.out.println("Select a card : ");
-            chosenIndex = console.nextInt()-1;
+            try {
+                System.out.println("Select a card : ");
+                chosenIndex = console.nextInt()-1;
+            }
+            catch (InputMismatchException e) {
+                System.out.print("(!) Select a card number !\n");
+                console.nextLine();
+            }
             
             if(chosenIndex>=0 && chosenIndex < collection.get_size())
                 boolIndexOk = true;
@@ -200,5 +224,74 @@ public final class MenuUI {
         }
         
         return collection.get_card(chosenIndex);
+    }
+    
+    /**
+     * Display the messages at the beginning of the creation of a card step by step
+     */
+    public static void print_create_card_msg(String cardType) {
+        System.out.println("****************************");
+        System.out.println("Create your "+cardType+" card :\n");
+        System.out.println("Prof. Oak : Here you can create your card step by step ! Let's Go !");
+    }
+    
+    /**
+     * Ask the player to fill a value for each attributes (without some exception) and return an array with every value
+     */
+    public static ArrayList ask_card_attributes_values(HashMap<String, Class> cardAttributes) {
+        ArrayList resultArray = new ArrayList();
+        String currentAttr = "";
+        Class currentAttrType = null; 
+        
+        for(Map.Entry<String, Class> entry : cardAttributes.entrySet()){
+            currentAttr = entry.getKey();
+            currentAttrType = entry.getValue();
+            
+            //If it's not an exception
+            if(currentAttrType.equals(String.class) || currentAttrType.equals(int.class) || currentAttrType.equals(boolean.class) || currentAttrType.equals(float.class))
+                ask_single_attribute(currentAttr, currentAttrType);
+        }
+        
+        return resultArray;
+    }
+    
+    /**
+     * Ask for one attribute with his name, and return the value in function of the type argument
+     */
+    private static Object ask_single_attribute(String name, Class type) {
+        Object value = null;
+        
+        while(value == null || value == "") {
+            try {
+                System.out.println(" * "+name+" : ");
+                if(type.equals(String.class)) {
+                    console.nextLine();
+                    value = console.nextLine();         
+                } 
+                else if(type.equals(int.class)) {
+                    value = console.nextInt();
+                }
+                else if(type.equals(boolean.class)) {
+                    value = console.nextBoolean();
+                }  
+                else if(type.equals(float.class)) {
+                   value = console.nextFloat();
+                }
+            }
+            catch (InputMismatchException e) {    
+                if(type.equals(String.class)) 
+                    System.out.print("(!) This field need a character string !\n");
+                else if(type.equals(int.class))
+                    System.out.print("(!) This field need an integer !\n");
+                else if(type.equals(boolean.class))
+                    System.out.print("(!) This field need a boolean !\n");
+                else if(type.equals(float.class))
+                    System.out.print("(!)  This field need a decimal number !\n");
+                console.nextLine();
+            }
+        }
+        System.out.println("debug : "+value);
+        
+        return value;         
     }
 }

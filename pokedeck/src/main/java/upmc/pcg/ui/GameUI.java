@@ -7,6 +7,7 @@ package upmc.pcg.ui;
 
 import java.util.*;
 import upmc.pcg.game.Game;
+import upmc.pcg.game.PokemonCard;
 
 /*
  * GameUI does the link between the game and users
@@ -19,7 +20,7 @@ public class GameUI {
     /**
      * Initialize the game and start it
      */
-    public void start() {
+    public void start() {        
         print_welcome_msg();
         ArrayList<String> names = ask_players_names();
         game.initialize(names);

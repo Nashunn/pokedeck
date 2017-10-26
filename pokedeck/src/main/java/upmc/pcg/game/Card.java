@@ -23,7 +23,7 @@ public abstract class Card {
     }
     
     /**
-     * Create a card (pokemon, trainer or energy)
+     * Create a card (pokemon, trainer or energy) with every attributes
      */
     public abstract void create();
 }
