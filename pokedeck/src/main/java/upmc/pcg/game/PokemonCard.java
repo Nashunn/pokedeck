@@ -10,6 +10,7 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import upmc.pcg.ui.CardMenuUI;
 import upmc.pcg.ui.MenuUI;
 
 /**
@@ -32,18 +33,19 @@ public class PokemonCard extends Card {
      */
     @Override
     public void create() {
-        HashMap<String, Class> cardAttributes = new HashMap<>();
-        ArrayList attributesValues = new ArrayList();
+        HashMap<String, Object> valuesForAttributes = new HashMap<>();
         
         MenuUI.print_create_card_msg("pokemon");
-        cardAttributes = get_card_attributes();
-        attributesValues = MenuUI.ask_card_attributes_values(cardAttributes);
+        valuesForAttributes = CardMenuUI.ask_pokemonCard_attributes();
+        
+        /*cardAttributes = get_card_attributes();
+        attributesValues = MenuUI.ask_card_attributes_values(cardAttributes);*/
     }
     
     /**
      * Get every attributes of the card with their type, except when they are static   
      */
-    private static HashMap<String, Class> get_card_attributes() {
+    /*private static HashMap<String, Class> get_card_attributes() {
         Field parentFieldsArray[] = Card.class.getDeclaredFields();
         Field childFieldsArray[] = PokemonCard.class.getDeclaredFields();
         HashMap<String, Class> resultFieldsArray = new HashMap<>();
@@ -52,12 +54,12 @@ public class PokemonCard extends Card {
         resultFieldsArray.putAll(get_non_static_attributes_from(childFieldsArray));
         
         return resultFieldsArray;
-    }
+    }*/
     
     /**
      * Explicit 
      */
-    private static HashMap<String, Class> get_non_static_attributes_from(Field fieldsArray[]) {
+    /*private static HashMap<String, Class> get_non_static_attributes_from(Field fieldsArray[]) {
         HashMap<String, Class> resultFieldsArray = new HashMap<>();
         
         for(Field field : fieldsArray) {
@@ -66,5 +68,5 @@ public class PokemonCard extends Card {
         }
         
         return resultFieldsArray;
-    }
+    }*/
 }

@@ -5,13 +5,8 @@
 
 package upmc.pcg.ui;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
-import java.util.Iterator;
-import java.util.ListIterator;
-import java.util.Map;
 import java.util.Scanner;
 import upmc.pcg.game.Card;
 import upmc.pcg.game.Collection;
@@ -192,7 +187,7 @@ public final class MenuUI {
         
         if(userConsultCard.equals("y")) {
             if(collection.get_size() != 0)
-                chosenCard = card_consult_menu(collection);
+                chosenCard = CardMenuUI.card_consult_menu(collection);
             else
                  System.out.println("(!) You don't have cards in your collection yet");
         }
@@ -201,44 +196,18 @@ public final class MenuUI {
     }    
     
     /**
-     * Return the card selected by the user in a menu
-     */
-    private static Card card_consult_menu(Collection collection) {
-        int chosenIndex = 1;
-        boolean boolIndexOk = false;
-        
-        while(!boolIndexOk) {
-            try {
-                System.out.println("Select a card : ");
-                chosenIndex = console.nextInt()-1;
-            }
-            catch (InputMismatchException e) {
-                System.out.print("(!) Select a card number !\n");
-                console.nextLine();
-            }
-            
-            if(chosenIndex>=0 && chosenIndex < collection.get_size())
-                boolIndexOk = true;
-            else
-                System.out.println("(!) This card isn't in the collection");
-        }
-        
-        return collection.get_card(chosenIndex);
-    }
-    
-    /**
      * Display the messages at the beginning of the creation of a card step by step
      */
     public static void print_create_card_msg(String cardType) {
         System.out.println("****************************");
         System.out.println("Create your "+cardType+" card :\n");
-        System.out.println("Prof. Oak : Here you can create your card step by step ! Let's Go !");
+        System.out.println("Prof. Oak : Here you can create your card step by step ! Let's Go !\n");
     }
     
     /**
      * Ask the player to fill a value for each attributes (without some exception) and return an array with every value
      */
-    public static ArrayList ask_card_attributes_values(HashMap<String, Class> cardAttributes) {
+    /*public static ArrayList ask_card_attributes_values(HashMap<String, Class> cardAttributes) {
         ArrayList resultArray = new ArrayList();
         String currentAttr = "";
         Class currentAttrType = null; 
@@ -253,12 +222,12 @@ public final class MenuUI {
         }
         
         return resultArray;
-    }
+    }*/
     
     /**
      * Ask for one attribute with his name, and return the value in function of the type argument
      */
-    private static Object ask_single_attribute(String name, Class type) {
+    /*private static Object ask_single_attribute(String name, Class type) {
         Object value = null;
         
         while(value == null || value == "") {
@@ -293,5 +262,5 @@ public final class MenuUI {
         System.out.println("debug : "+value);
         
         return value;         
-    }
+    }*/
 }
