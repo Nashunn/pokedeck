@@ -253,9 +253,9 @@ public final class MenuUI {
             result.add(EnergyCard.ENERGY_TYPES[chosenEnergyIndex]);
             
             do {
+                console.nextLine();
                 System.out.println("Do you want to add another energy ? (y/n) ");
                 otherEnergy = console.nextLine();
-                console.nextLine();
             }while(!otherEnergy.equals("n") && !otherEnergy.equals("y"));
             
         }while(otherEnergy.equals("y"));
@@ -288,9 +288,10 @@ public final class MenuUI {
             }
             catch (InputMismatchException e) {
                 System.out.print("(!) Select a number in the list\n");
-                console.nextLine();
+                if(console.hasNextLine())
+                    console.nextLine();
             }
-        } while(result<0);
+        } while(result<=0);
         
         return result-1;
     }
@@ -320,6 +321,9 @@ public final class MenuUI {
      */
     public static String ask_description() {
         String result = "";
+        
+        if(console.hasNextLine())
+            console.nextLine();
         
         do {
             System.out.println(" * Description : ");

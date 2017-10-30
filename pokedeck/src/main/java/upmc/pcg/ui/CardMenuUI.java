@@ -39,10 +39,10 @@ public final class CardMenuUI {
         int chosenIndex = 1;
         boolean boolIndexOk = false;
         
-        while(!boolIndexOk) {
+        while(!boolIndexOk && collectionGiven.get_size()>1) {
             try {
-                System.out.println("Select a card : ");
-                chosenIndex = console.nextInt()-1;
+                    System.out.println("Select a card : ");
+                    chosenIndex = console.nextInt()-1;
             }
             catch (InputMismatchException e) {
                 System.out.print("(!) Select a card number !\n");
@@ -62,7 +62,10 @@ public final class CardMenuUI {
                 System.out.println("(!) This card isn't in the collection");
         }
         
-        return collectionGiven.get_card(chosenIndex);
+        if(collectionGiven.get_size()<1)
+            return null;
+        else
+            return collectionGiven.get_card(chosenIndex);
     }
     
     /**
@@ -187,9 +190,9 @@ public final class CardMenuUI {
             result.add(newAttack);
             
             do {
+                console.nextLine();
                 System.out.println("Do you want to add another attack? (y/n) ");
                 otherAttack = console.nextLine();
-                console.nextLine();
             }while(!otherAttack.equals("n") && !otherAttack.equals("y"));
             
         }while(otherAttack.equals("y"));

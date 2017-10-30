@@ -37,36 +37,5 @@ public class PokemonCard extends Card {
         
         MenuUI.print_create_card_msg("pokemon");
         valuesForAttributes = CardMenuUI.ask_pokemonCard_attributes();
-        
-        /*cardAttributes = get_card_attributes();
-        attributesValues = MenuUI.ask_card_attributes_values(cardAttributes);*/
     }
-    
-    /**
-     * Get every attributes of the card with their type, except when they are static   
-     */
-    /*private static HashMap<String, Class> get_card_attributes() {
-        Field parentFieldsArray[] = Card.class.getDeclaredFields();
-        Field childFieldsArray[] = PokemonCard.class.getDeclaredFields();
-        HashMap<String, Class> resultFieldsArray = new HashMap<>();
-        
-        resultFieldsArray.putAll(get_non_static_attributes_from(parentFieldsArray));
-        resultFieldsArray.putAll(get_non_static_attributes_from(childFieldsArray));
-        
-        return resultFieldsArray;
-    }*/
-    
-    /**
-     * Explicit 
-     */
-    /*private static HashMap<String, Class> get_non_static_attributes_from(Field fieldsArray[]) {
-        HashMap<String, Class> resultFieldsArray = new HashMap<>();
-        
-        for(Field field : fieldsArray) {
-            if (!Modifier.isStatic(field.getModifiers()))
-                resultFieldsArray.put(field.getName(), field.getType());
-        }
-        
-        return resultFieldsArray;
-    }*/
 }
