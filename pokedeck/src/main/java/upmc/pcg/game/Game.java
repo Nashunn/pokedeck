@@ -6,6 +6,7 @@
 package upmc.pcg.game;
 
 import java.util.*;
+import upmc.pcg.ui.CardMenuUI;
 import upmc.pcg.ui.MenuUI;
 
 /*
@@ -35,6 +36,7 @@ public class Game {
         Collection collectionPlayer = new Collection(currentPlayer);
         collections.put(currentPlayer, collectionPlayer);
         currentCollection = collections.get(currentPlayer);
+        CardMenuUI.setActualCollection(currentCollection);
     }
     
     /**

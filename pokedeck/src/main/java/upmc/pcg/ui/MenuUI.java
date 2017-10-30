@@ -5,9 +5,11 @@
 
 package upmc.pcg.ui;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import upmc.pcg.game.Attack;
 import upmc.pcg.game.Card;
 import upmc.pcg.game.Collection;
 import upmc.pcg.game.EnergyCard;
@@ -187,7 +189,7 @@ public final class MenuUI {
         
         if(userConsultCard.equals("y")) {
             if(collection.get_size() != 0)
-                chosenCard = CardMenuUI.card_consult_menu(collection);
+                chosenCard = CardMenuUI.card_consult_menu(collection, false);
             else
                  System.out.println("(!) You don't have cards in your collection yet");
         }
@@ -205,62 +207,125 @@ public final class MenuUI {
     }
     
     /**
-     * Ask the player to fill a value for each attributes (without some exception) and return an array with every value
+     * Ask the user to fill every attributes of an attack
      */
-    /*public static ArrayList ask_card_attributes_values(HashMap<String, Class> cardAttributes) {
-        ArrayList resultArray = new ArrayList();
-        String currentAttr = "";
-        Class currentAttrType = null; 
+    public static HashMap<String, Object> attack_ask_all() {
+        HashMap<String, Object> valuesForAttributes = new HashMap<>();
         
-        for(Map.Entry<String, Class> entry : cardAttributes.entrySet()){
-            currentAttr = entry.getKey();
-            currentAttrType = entry.getValue();
-            
-            //If it's not an exception
-            if(currentAttrType.equals(String.class) || currentAttrType.equals(int.class) || currentAttrType.equals(boolean.class) || currentAttrType.equals(float.class))
-                ask_single_attribute(currentAttr, currentAttrType);
-        }
+        System.out.println("****************************");
+        System.out.println("Attack creation : \n");
+        valuesForAttributes.put("name", ask_name());
+        valuesForAttributes.put("neededEnergy", ask_neededEnergy());
+        valuesForAttributes.put("damage", ask_dmg());
+        valuesForAttributes.put("description", ask_description());
         
-        return resultArray;
-    }*/
+        return valuesForAttributes;
+    }
     
     /**
-     * Ask for one attribute with his name, and return the value in function of the type argument
+     * Explicit
      */
-    /*private static Object ask_single_attribute(String name, Class type) {
-        Object value = null;
+    private static String ask_name() {
+        String result = "";
+        console.nextLine();
         
-        while(value == null || value == "") {
+        while(result.equals("")) {
+            System.out.println(" * Name : ");
+            result = console.nextLine();
+        }
+
+        return result;
+    }
+    
+    /**
+     * Explicit
+     */
+    private static ArrayList<String> ask_neededEnergy() {
+        ArrayList<String> result = new ArrayList<>();
+        String otherEnergy = "n";
+        int chosenEnergyIndex = 0;
+        
+        System.out.println(" * Needed energy : ");
+        
+        print_energies();
+        do {
+            chosenEnergyIndex = ask_energy();
+            result.add(EnergyCard.ENERGY_TYPES[chosenEnergyIndex]);
+            
+            do {
+                System.out.println("Do you want to add another energy ? (y/n) ");
+                otherEnergy = console.nextLine();
+                console.nextLine();
+            }while(!otherEnergy.equals("n") && !otherEnergy.equals("y"));
+            
+        }while(otherEnergy.equals("y"));
+        
+        return result;
+    }
+    
+    /**
+     * Print all energies in the form of a list
+     */
+    public static void print_energies() {
+        final int MAX_ENERGY = EnergyCard.ENERGY_TYPES.length;
+        
+        for(int i=1; i<=MAX_ENERGY; i++) {
+            System.out.println(" "+i+". "+EnergyCard.ENERGY_TYPES[i-1]);
+        }
+        System.out.println("");
+    }
+    
+    /**
+     * Ask the user what type of energy he want to pick, return the index of the chosen energy 
+     */
+    public static int ask_energy() {
+        int result = 0;
+        
+        do {
             try {
-                System.out.println(" * "+name+" : ");
-                if(type.equals(String.class)) {
-                    console.nextLine();
-                    value = console.nextLine();         
-                } 
-                else if(type.equals(int.class)) {
-                    value = console.nextInt();
-                }
-                else if(type.equals(boolean.class)) {
-                    value = console.nextBoolean();
-                }  
-                else if(type.equals(float.class)) {
-                   value = console.nextFloat();
-                }
+                System.out.println("\nWhat type of energy do you want to pick ? ");
+                result = console.nextInt();
             }
-            catch (InputMismatchException e) {    
-                if(type.equals(String.class)) 
-                    System.out.print("(!) This field need a character string !\n");
-                else if(type.equals(int.class))
-                    System.out.print("(!) This field need an integer !\n");
-                else if(type.equals(boolean.class))
-                    System.out.print("(!) This field need a boolean !\n");
-                else if(type.equals(float.class))
-                    System.out.print("(!)  This field need a decimal number !\n");
+            catch (InputMismatchException e) {
+                System.out.print("(!) Select a number in the list\n");
                 console.nextLine();
             }
-        }
-        System.out.println("debug : "+value);
+        } while(result<0);
         
-        return value;         
-    }*/
+        return result-1;
+    }
+    
+    /**
+     * Ask the user how many damage an attack is going to do
+     */
+    public static int ask_dmg() {
+        int result = 0;
+        
+        do {
+            try {
+                System.out.println(" * Damage : ");
+                result = console.nextInt();
+            }
+            catch (InputMismatchException e) {
+                System.out.print("(!) Chose a positive number\n");
+                console.nextLine();
+            }
+        } while(result<0);
+        
+        return result;
+    }
+    
+    /**
+     * Ask the user to fill a description field
+     */
+    public static String ask_description() {
+        String result = "";
+        
+        do {
+            System.out.println(" * Description : ");
+            result = console.nextLine();
+        }while(result.equals(""));
+        
+        return result;
+    }
 }

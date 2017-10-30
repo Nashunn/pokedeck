@@ -20,7 +20,7 @@ public class GameUI {
     /**
      * Initialize the game and start it
      */
-    public void start() {        
+    public void start() {     
         print_welcome_msg();
         ArrayList<String> names = ask_players_names();
         game.initialize(names);

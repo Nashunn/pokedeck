@@ -14,7 +14,7 @@ public class EnergyCard extends Card {
         "Grass",
         "Fire",
         "Water",
-        "Linghtning",
+        "Lightning",
         "Psychic",
         "Fighting",
         "Darkness",

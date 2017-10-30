@@ -30,6 +30,9 @@ public class Collection {
     public void list_all_cards(){
         Iterator<Card> cardIterator = cards.iterator();
         
+        if(this.get_size() < 1)
+            System.out.println("(!) The collection is empty for the moment");
+        
         for(int cardIndex = 0; cardIterator.hasNext(); cardIndex++) {
             Card card = cardIterator.next();
             System.out.println((cardIndex+1)+". "+card.get_name());

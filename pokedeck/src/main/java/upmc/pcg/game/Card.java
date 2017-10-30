@@ -23,6 +23,13 @@ public abstract class Card {
     }
     
     /**
+     * Return the cardType in the form of a string
+     */
+    public String get_cardType() {
+        return this.cardType;
+    }
+    
+    /**
      * Create a card (pokemon, trainer or energy) with every attributes
      */
     public abstract void create();
