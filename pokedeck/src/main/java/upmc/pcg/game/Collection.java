@@ -59,4 +59,20 @@ public class Collection {
     public int get_size() {
         return cards.size();
     }
+    
+    /**
+     * Verify if a cardNb already exists in the collection
+     * if yes : return false
+     * if yes but it have the same cardName : return true
+     * if no : return true 
+     */
+    public boolean cardNb_available(String cardName, int cardNb) {
+        boolean boolVerify = false;
+        
+        for (Card card: this.cards) {
+            card.get_name();
+        }
+        
+        return boolVerify;
+    } 
 }

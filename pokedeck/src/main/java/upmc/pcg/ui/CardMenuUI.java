@@ -12,6 +12,7 @@ import java.util.Scanner;
 import upmc.pcg.game.Attack;
 import upmc.pcg.game.Card;
 import upmc.pcg.game.Collection;
+import upmc.pcg.game.EnergyCard;
 import upmc.pcg.game.PokemonCard;
 
 /**
@@ -41,12 +42,12 @@ public final class CardMenuUI {
         
         while(!boolIndexOk && collectionGiven.get_size()>1) {
             try {
-                    System.out.println("Select a card : ");
-                    chosenIndex = console.nextInt()-1;
+                System.out.println("Select a card : ");
+                chosenIndex = console.nextInt()-1;
             }
             catch (InputMismatchException e) {
                 System.out.print("(!) Select a card number !\n");
-                console.nextLine();
+                GameUI.clear_console_buffer(console);
             }
             
             if(chosenIndex>=0 && chosenIndex < collection.get_size()) {
@@ -94,7 +95,9 @@ public final class CardMenuUI {
             valuesForAttributes.put("evolvesFrom", card_ask_evolvesFrom());
         else
             valuesForAttributes.put("evolvesFrom", null);
-        valuesForAttributes.put("attacks", card_ask_attacks());        
+        valuesForAttributes.put("attacks", card_ask_attacks());
+        valuesForAttributes.put("weaknessType", card_ask_weaknessType());
+        valuesForAttributes.put("resistanceType", card_ask_resistanceType());
         
         return valuesForAttributes;
     }
@@ -119,6 +122,10 @@ public final class CardMenuUI {
     private static String card_ask_energyType() {
         String result = "Default";
         
+        System.out.println(" * Energy type : ");
+        MenuUI.print_energies();
+        result = EnergyCard.ENERGY_TYPES[MenuUI.ask_energy()];
+        
         return result;
     }
     
@@ -135,7 +142,7 @@ public final class CardMenuUI {
             }
             catch (InputMismatchException e) {
                 System.out.print("(!) Select a number !\n");
-                console.nextLine();
+                GameUI.clear_console_buffer(console);
             }
         } while(result<=0);
         
@@ -155,7 +162,7 @@ public final class CardMenuUI {
             }
             catch (InputMismatchException e) {
                 System.out.print("(!) Select a number !\n");
-                console.nextLine();
+                GameUI.clear_console_buffer(console);
             }
         } while(result<0);
         
@@ -190,12 +197,38 @@ public final class CardMenuUI {
             result.add(newAttack);
             
             do {
-                console.nextLine();
+                GameUI.clear_console_buffer(console);
                 System.out.println("Do you want to add another attack? (y/n) ");
-                otherAttack = console.nextLine();
+                GameUI.clear_console_buffer(console);
             }while(!otherAttack.equals("n") && !otherAttack.equals("y"));
             
         }while(otherAttack.equals("y"));
+        
+        return result;
+    }
+    
+    /**
+     * Explicit
+     */
+    private static String card_ask_weaknessType() {
+        String result = "Default";
+        
+        System.out.println(" * Weakness type : ");
+        MenuUI.print_energies();
+        result = EnergyCard.ENERGY_TYPES[MenuUI.ask_energy()];
+        
+        return result;
+    }
+    
+    /**
+     * Explicit
+     */
+    private static String card_ask_resistanceType() {
+        String result = "Default";
+        
+        System.out.println(" * Resistance type : ");
+        MenuUI.print_energies();
+        result = EnergyCard.ENERGY_TYPES[MenuUI.ask_energy()];
         
         return result;
     }

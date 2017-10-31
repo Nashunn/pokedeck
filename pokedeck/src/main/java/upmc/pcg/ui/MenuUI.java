@@ -65,7 +65,7 @@ public final class MenuUI {
             }
             catch (InputMismatchException e) {
                 System.out.print("(!) Select a number !\n");
-                console.nextLine();
+                GameUI.clear_console_buffer(console);
             }
         }while(!(choice>=1 && choice <=4));
         
@@ -137,7 +137,7 @@ public final class MenuUI {
             }
             catch (InputMismatchException e) {
                 System.out.print("(!) Select a number !\n");
-                console.nextLine();
+                GameUI.clear_console_buffer(console);
             }
         }
         
@@ -167,7 +167,6 @@ public final class MenuUI {
         
         return card;
     }
-
     
     /**
      * Display the content of the collection and ask the user which card he wants to consult
@@ -181,7 +180,7 @@ public final class MenuUI {
         System.out.println("Collection content :\n");
         collection.list_all_cards();
         
-        console.nextLine(); //Empty buffer
+        GameUI.clear_console_buffer(console);
         while(userConsultCard.equals("") || (!userConsultCard.equals("n") && !userConsultCard.equals("y"))) {
             System.out.println("Do you want to consult a card ? (y/n)");
             userConsultCard = console.nextLine();
@@ -227,7 +226,7 @@ public final class MenuUI {
      */
     private static String ask_name() {
         String result = "";
-        console.nextLine();
+        GameUI.clear_console_buffer(console);
         
         while(result.equals("")) {
             System.out.println(" * Name : ");
@@ -253,7 +252,7 @@ public final class MenuUI {
             result.add(EnergyCard.ENERGY_TYPES[chosenEnergyIndex]);
             
             do {
-                console.nextLine();
+                GameUI.clear_console_buffer(console);
                 System.out.println("Do you want to add another energy ? (y/n) ");
                 otherEnergy = console.nextLine();
             }while(!otherEnergy.equals("n") && !otherEnergy.equals("y"));
@@ -283,15 +282,20 @@ public final class MenuUI {
         
         do {
             try {
-                System.out.println("\nWhat type of energy do you want to pick ? ");
+                System.out.println("What type of energy do you want to pick ? ");
                 result = console.nextInt();
             }
             catch (InputMismatchException e) {
                 System.out.print("(!) Select a number in the list\n");
-                if(console.hasNextLine())
-                    console.nextLine();
+                GameUI.clear_console_buffer(console);
             }
-        } while(result<=0);
+            if(result>EnergyCard.ENERGY_TYPES.length) {
+                System.out.print("(!) This number is too high\n");
+            }
+            
+            System.out.println("debug : "+result);
+            
+        } while(result<=0 || result>EnergyCard.ENERGY_TYPES.length);
         
         return result-1;
     }
@@ -309,7 +313,7 @@ public final class MenuUI {
             }
             catch (InputMismatchException e) {
                 System.out.print("(!) Chose a positive number\n");
-                console.nextLine();
+                GameUI.clear_console_buffer(console);
             }
         } while(result<0);
         
@@ -322,8 +326,7 @@ public final class MenuUI {
     public static String ask_description() {
         String result = "";
         
-        if(console.hasNextLine())
-            console.nextLine();
+        GameUI.clear_console_buffer(console);
         
         do {
             System.out.println(" * Description : ");

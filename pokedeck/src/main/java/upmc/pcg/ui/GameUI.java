@@ -68,7 +68,7 @@ public class GameUI {
         boolean boolOtherName = false;
         String response = "";
         
-        while(response.equals("") && (!response.equals("y") && !response.equals("n"))) {
+        while(response.equals("") || (!response.equals("y") && !response.equals("n"))) {
             System.out.println("Prof. Oak : Do you have another friend with you ? (y/n)");
             response = console.nextLine();
         }
@@ -89,5 +89,13 @@ public class GameUI {
         System.out.println("Welcome in the pokedeck !\nHere you can create your own cards,");
         System.out.println("save, modify and manage your collection !\n");
         System.out.println("Have fun !\n");
+    }
+    
+    /**
+     * Explicit
+     */
+    public static void clear_console_buffer(Scanner parConsole) {
+        if(parConsole.hasNextLine())
+            parConsole.nextLine();
     }
 }

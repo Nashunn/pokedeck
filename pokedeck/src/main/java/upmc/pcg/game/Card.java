@@ -13,6 +13,7 @@ public abstract class Card {
     protected String name = "Default";
     protected String cardType;
     protected String specialType; //Pokemon type, Trainer type or Energy type
+    protected int cardNb;
     public static String CARD_TYPES[] = {"pokemon", "trainer", "energy"};
     
     /**
@@ -27,6 +28,13 @@ public abstract class Card {
      */
     public String get_cardType() {
         return this.cardType;
+    }
+    
+    /**
+     * Return the cardNb
+     */
+    public int get_cardNb() {
+        return this.cardNb;
     }
     
     /**

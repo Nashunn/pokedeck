@@ -24,7 +24,6 @@ public class PokemonCard extends Card {
     private PokemonCard evolvesFrom = null;
     private String weaknessType;
     private String resistanceType;
-    private int cardNb;
     
     public PokemonCard() {};
 
