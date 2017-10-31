@@ -87,6 +87,8 @@ public final class CardMenuUI {
     public static HashMap<String, Object> ask_pokemonCard_attributes() {
         HashMap<String, Object> valuesForAttributes = new HashMap<>();
         
+        GameUI.clear_console_buffer(console);
+        
         valuesForAttributes.put("name", card_ask_name());
         valuesForAttributes.put("specialType", card_ask_energyType());
         valuesForAttributes.put("hp", card_ask_hp());
@@ -98,6 +100,7 @@ public final class CardMenuUI {
         valuesForAttributes.put("attacks", card_ask_attacks());
         valuesForAttributes.put("weaknessType", card_ask_weaknessType());
         valuesForAttributes.put("resistanceType", card_ask_resistanceType());
+        valuesForAttributes.put("cardNb", card_ask_cardNb((String)valuesForAttributes.get("name")));
         
         return valuesForAttributes;
     }
@@ -109,6 +112,7 @@ public final class CardMenuUI {
         String result = "Default";
         
         do {
+            GameUI.clear_console_buffer(console);
             System.out.println(" * Name : ");
             result = console.nextLine();
         }while(result.equals(""));
@@ -229,6 +233,26 @@ public final class CardMenuUI {
         System.out.println(" * Resistance type : ");
         MenuUI.print_energies();
         result = EnergyCard.ENERGY_TYPES[MenuUI.ask_energy()];
+        
+        return result;
+    }
+    
+    /**
+     * Explicit, verify if the cardNb is available in the collection
+     */
+    private static int card_ask_cardNb(String actualCardName) {
+        int result = -1;
+        
+        do {
+            try {
+                System.out.println(" * collector card number : ");
+                result = console.nextInt();
+            }
+            catch (InputMismatchException e) {
+                System.out.print("(!) Select a positive number !\n");
+                GameUI.clear_console_buffer(console);
+            }
+        } while(result<=0 && !collection.cardNb_available(actualCardName, result));
         
         return result;
     }

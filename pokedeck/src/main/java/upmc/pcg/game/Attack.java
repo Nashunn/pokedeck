@@ -46,7 +46,5 @@ public class Attack {
         this.neededEnergy = (ArrayList<String>)valuesForAttributes.get("neededEnergy");
         this.damage = (int)valuesForAttributes.get("damage");
         this.description = (String)valuesForAttributes.get("description");
-        
-        System.out.println("debug : "+this.name);
     }
 }

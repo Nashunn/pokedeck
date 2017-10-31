@@ -62,15 +62,21 @@ public class Collection {
     
     /**
      * Verify if a cardNb already exists in the collection
-     * if yes : return false
-     * if yes but it have the same cardName : return true
-     * if no : return true 
+     * if it doesn't exist : return true 
+     * if it already exist but it have the same cardName : return true
+     * if it already exist and don't have the same cardName : return false
      */
     public boolean cardNb_available(String cardName, int cardNb) {
-        boolean boolVerify = false;
+        boolean boolVerify = true;
+        Card currentCard = null;
+        Iterator<Card> cardsIterator = this.cards.iterator();
         
-        for (Card card: this.cards) {
-            card.get_name();
+        while(cardsIterator.hasNext() && boolVerify!=false) {
+            currentCard = cardsIterator.next();
+            
+            if(currentCard.get_cardNb()==cardNb)
+                if(currentCard.get_name()!=cardName)
+                    boolVerify = false;
         }
         
         return boolVerify;

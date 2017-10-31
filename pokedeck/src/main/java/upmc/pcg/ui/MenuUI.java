@@ -217,6 +217,7 @@ public final class MenuUI {
         valuesForAttributes.put("neededEnergy", ask_neededEnergy());
         valuesForAttributes.put("damage", ask_dmg());
         valuesForAttributes.put("description", ask_description());
+        System.out.println("****************************");
         
         return valuesForAttributes;
     }
@@ -292,9 +293,6 @@ public final class MenuUI {
             if(result>EnergyCard.ENERGY_TYPES.length) {
                 System.out.print("(!) This number is too high\n");
             }
-            
-            System.out.println("debug : "+result);
-            
         } while(result<=0 || result>EnergyCard.ENERGY_TYPES.length);
         
         return result-1;
@@ -313,7 +311,6 @@ public final class MenuUI {
             }
             catch (InputMismatchException e) {
                 System.out.print("(!) Chose a positive number\n");
-                GameUI.clear_console_buffer(console);
             }
         } while(result<0);
         

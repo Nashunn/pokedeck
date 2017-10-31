@@ -32,9 +32,18 @@ public class PokemonCard extends Card {
      */
     @Override
     public void create() {
-        HashMap<String, Object> valuesForAttributes = new HashMap<>();
-        
         MenuUI.print_create_card_msg("pokemon");
+        fill_card();
+    }
+    
+    /**
+     * Fill the card with 
+     */
+    private void fill_card() {
+        HashMap<String, Object> valuesForAttributes = new HashMap<>();
         valuesForAttributes = CardMenuUI.ask_pokemonCard_attributes();
+        
+        //TODO like :
+        //this.name = (String)valuesForAttributes.get("name");
     }
 }
