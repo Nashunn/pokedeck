@@ -40,7 +40,7 @@ public final class CardMenuUI {
         int chosenIndex = 1;
         boolean boolIndexOk = false;
         
-        while(!boolIndexOk && collectionGiven.get_size()>1) {
+        while(!boolIndexOk || collectionGiven.get_size()>1) {
             try {
                 System.out.println("Select a card : ");
                 chosenIndex = console.nextInt()-1;
@@ -203,7 +203,7 @@ public final class CardMenuUI {
             do {
                 GameUI.clear_console_buffer(console);
                 System.out.println("Do you want to add another attack? (y/n) ");
-                GameUI.clear_console_buffer(console);
+                otherAttack = console.nextLine();
             }while(!otherAttack.equals("n") && !otherAttack.equals("y"));
             
         }while(otherAttack.equals("y"));

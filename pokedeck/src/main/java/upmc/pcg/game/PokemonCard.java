@@ -43,7 +43,15 @@ public class PokemonCard extends Card {
         HashMap<String, Object> valuesForAttributes = new HashMap<>();
         valuesForAttributes = CardMenuUI.ask_pokemonCard_attributes();
         
-        //TODO like :
-        //this.name = (String)valuesForAttributes.get("name");
+        this.cardType = CARD_TYPES[0]; //pokemon
+        this.name = (String)valuesForAttributes.get("name");
+        this.specialType = (String)valuesForAttributes.get("specialType");
+        this.hp = (int)valuesForAttributes.get("hp");
+        this.stage = (int)valuesForAttributes.get("stage");
+        this.evolvesFrom = (PokemonCard)valuesForAttributes.get("evolvesFrom");
+        this.attacks = (ArrayList<Attack>)valuesForAttributes.get("attacks");
+        this.weaknessType = (String)valuesForAttributes.get("weaknessType");
+        this.resistanceType = (String)valuesForAttributes.get("resistanceType");
+        this.cardNb = (int)valuesForAttributes.get("cardNb");
     }
 }

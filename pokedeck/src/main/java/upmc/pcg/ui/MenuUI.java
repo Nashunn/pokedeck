@@ -227,11 +227,11 @@ public final class MenuUI {
      */
     private static String ask_name() {
         String result = "";
-        GameUI.clear_console_buffer(console);
         
         while(result.equals("")) {
             System.out.println(" * Name : ");
             result = console.nextLine();
+            GameUI.clear_console_buffer(console);
         }
 
         return result;
@@ -253,9 +253,9 @@ public final class MenuUI {
             result.add(EnergyCard.ENERGY_TYPES[chosenEnergyIndex]);
             
             do {
-                GameUI.clear_console_buffer(console);
                 System.out.println("Do you want to add another energy ? (y/n) ");
                 otherEnergy = console.nextLine();
+                GameUI.clear_console_buffer(console);
             }while(!otherEnergy.equals("n") && !otherEnergy.equals("y"));
             
         }while(otherEnergy.equals("y"));
@@ -312,7 +312,7 @@ public final class MenuUI {
             catch (InputMismatchException e) {
                 System.out.print("(!) Chose a positive number\n");
             }
-        } while(result<0);
+        } while(result<=0);
         
         return result;
     }
