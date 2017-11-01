@@ -62,8 +62,7 @@ public class Game {
                 break;
             //Consult collection
             case 2:
-                // todo : get the returned card and do the next step after we get a card (card not null)
-                MenuUI.collection_consult_menu(currentCollection); 
+                MenuUI.action_consult_menu(currentCollection);
                 break;
             //Search cards by criteria
             case 3:

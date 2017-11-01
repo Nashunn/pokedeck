@@ -112,7 +112,6 @@ public final class CardMenuUI {
         String result = "Default";
         
         do {
-            GameUI.clear_console_buffer(console);
             System.out.println(" * Name : ");
             result = console.nextLine();
         }while(result.equals(""));

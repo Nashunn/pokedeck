@@ -169,6 +169,21 @@ public final class MenuUI {
     }
     
     /**
+     * Do all the actions when the user want to consult the collection
+     * in the main menu
+     */
+    public static void action_consult_menu(Collection currentCollection) {
+        Card currentCard = null;
+        
+        currentCard = collection_consult_menu(currentCollection);
+        
+        if(currentCard != null)
+            System.out.println("card : "+currentCard.toString());
+        else
+            System.out.println("(!) Pas de carte à afficher");
+    }
+    
+    /**
      * Display the content of the collection and ask the user which card he wants to consult
      * return the chosen card
      */
@@ -228,10 +243,11 @@ public final class MenuUI {
     private static String ask_name() {
         String result = "";
         
+        GameUI.clear_console_buffer(console);
+        
         while(result.equals("")) {
             System.out.println(" * Name : ");
-            result = console.nextLine();
-            GameUI.clear_console_buffer(console);
+            result = console.nextLine();  
         }
 
         return result;
@@ -253,9 +269,9 @@ public final class MenuUI {
             result.add(EnergyCard.ENERGY_TYPES[chosenEnergyIndex]);
             
             do {
+                GameUI.clear_console_buffer(console);
                 System.out.println("Do you want to add another energy ? (y/n) ");
                 otherEnergy = console.nextLine();
-                GameUI.clear_console_buffer(console);
             }while(!otherEnergy.equals("n") && !otherEnergy.equals("y"));
             
         }while(otherEnergy.equals("y"));
