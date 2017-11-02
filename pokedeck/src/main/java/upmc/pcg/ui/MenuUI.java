@@ -180,7 +180,7 @@ public final class MenuUI {
         if(currentCard != null)
             System.out.println("card : "+currentCard.toString());
         else
-            System.out.println("(!) Pas de carte à afficher");
+            System.out.println("(!) No card selected");
     }
     
     /**
@@ -327,6 +327,7 @@ public final class MenuUI {
             }
             catch (InputMismatchException e) {
                 System.out.print("(!) Chose a positive number\n");
+                GameUI.clear_console_buffer(console);
             }
         } while(result<=0);
         
