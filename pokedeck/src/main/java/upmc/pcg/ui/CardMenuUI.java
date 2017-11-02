@@ -14,6 +14,7 @@ import upmc.pcg.game.Card;
 import upmc.pcg.game.Collection;
 import upmc.pcg.game.EnergyCard;
 import upmc.pcg.game.PokemonCard;
+import upmc.pcg.game.TrainerCard;
 
 /**
  * CardMenuUI contains statics methods that display cards' menu in the game, to interract with the user
@@ -101,6 +102,40 @@ public final class CardMenuUI {
         valuesForAttributes.put("weaknessType", card_ask_weaknessType());
         valuesForAttributes.put("resistanceType", card_ask_resistanceType());
         valuesForAttributes.put("cardNb", card_ask_cardNb((String)valuesForAttributes.get("name")));
+        
+        return valuesForAttributes;
+    }
+    
+    /**
+     * Ask the value for each attributes of the pokemon card
+     */
+    public static HashMap<String, Object> ask_trainerCard_attributes() {
+        HashMap<String, Object> valuesForAttributes = new HashMap<>();
+        
+        GameUI.clear_console_buffer(console);
+        
+        valuesForAttributes.put("name", card_ask_name());
+        valuesForAttributes.put("specialType", card_ask_trainerType());
+        valuesForAttributes.put("explanation", card_ask_explanation());
+        valuesForAttributes.put("trainerRule", card_ask_trainerRule());
+        valuesForAttributes.put("cardNb", card_ask_cardNb((String)valuesForAttributes.get("name")));
+        
+        return valuesForAttributes;
+    }
+    
+    /**
+     * Ask the value for each attributes of the energy card
+     */
+    public static HashMap<String, Object> ask_energyCard_attributes() {
+        HashMap<String, Object> valuesForAttributes = new HashMap<>();
+        int cardNb = 0;
+        
+        GameUI.clear_console_buffer(console);
+        
+        valuesForAttributes.put("specialType", card_ask_energyType());
+        valuesForAttributes.put("name", "[Energy Card] "+(String)valuesForAttributes.get("specialType"));
+        cardNb = find_energy_cardNb((String)valuesForAttributes.get("specialType"))+1;
+        valuesForAttributes.put("cardNb", -cardNb);//negative card number for energy
         
         return valuesForAttributes;
     }
@@ -252,6 +287,67 @@ public final class CardMenuUI {
                 GameUI.clear_console_buffer(console);
             }
         } while(result<=0 && !collection.cardNb_available(actualCardName, result));
+        
+        return result;
+    }
+    
+    /**
+     * Explicit, for trainer card
+     */
+    private static String card_ask_trainerType() {
+        String result = "Default";
+        
+        System.out.println(" * Trainer type : ");
+        MenuUI.print_trainerType();
+        result = TrainerCard.TRAINER_TYPES[MenuUI.ask_trainerType()];
+        
+        return result;
+    }
+    
+    /**
+     * Explicit
+     */
+    private static String card_ask_explanation() {
+        String result = "No explanation";
+        
+        do {
+            System.out.println(" * Explanation : ");
+            result = console.nextLine();
+        }while(result.equals(""));
+
+        return result;
+    }
+    
+    /**
+     * Explicit
+     */
+    private static String card_ask_trainerRule() {
+        String result = "No rule";
+        
+        do {
+            System.out.println(" * Trainer Rule : ");
+            result = console.nextLine();
+        }while(result.equals(""));
+
+        return result;
+    }
+    
+    /**
+     * Find the cardNb for an energyCard, with its energyType
+     */
+    private static int find_energy_cardNb(String energyType) {
+        int result = -1;
+        int energyIndex = 0;
+        boolean cardNbFound = false;
+
+        while(!cardNbFound) {
+            if(energyType.equals(EnergyCard.ENERGY_TYPES[energyIndex])) {
+                cardNbFound = true;
+                result = energyIndex;
+            }
+            else
+                energyIndex++;
+        }
         
         return result;
     }

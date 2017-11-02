@@ -349,4 +349,39 @@ public final class MenuUI {
         
         return result;
     }
+    
+    /**
+     * Print all trainer type in the form of a list
+     */
+    public static void print_trainerType() {
+        final int MAX_TRAINER = TrainerCard.TRAINER_TYPES.length;
+        
+        for(int i=1; i<=MAX_TRAINER; i++) {
+            System.out.println(" "+i+". "+TrainerCard.TRAINER_TYPES[i-1]);
+        }
+        System.out.println("");
+    }
+    
+    /**
+     * Ask what trainer type the user want to select
+     */
+    public static int ask_trainerType() {
+        int result = 0;
+        
+        do {
+            try {
+                System.out.println("What trainer type do you want to pick ? ");
+                result = console.nextInt();
+            }
+            catch (InputMismatchException e) {
+                System.out.print("(!) Select a number in the list\n");
+                GameUI.clear_console_buffer(console);
+            }
+            if(result>TrainerCard.TRAINER_TYPES.length) {
+                System.out.print("(!) This number is too high\n");
+            }
+        } while(result<=0 || result>TrainerCard.TRAINER_TYPES.length);
+        
+        return result-1;
+    }
 }

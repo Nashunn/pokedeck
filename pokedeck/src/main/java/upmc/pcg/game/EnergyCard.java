@@ -5,6 +5,12 @@
 
 package upmc.pcg.game;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import static upmc.pcg.game.Card.CARD_TYPES;
+import upmc.pcg.ui.CardMenuUI;
+import upmc.pcg.ui.MenuUI;
+
 /**
  * EnergyCard is a representation of pokemon energy card
  * @author Nicolas & Gabin
@@ -26,7 +32,21 @@ public class EnergyCard extends Card {
 
     @Override
     public void create() {
-        System.out.println("TODO : creation of energy card");
+        MenuUI.print_create_card_msg("energy");
+        fill_card();
+    }
+    
+    /**
+     * Fill the card with informations given by the user
+     */
+    private void fill_card() {
+        HashMap<String, Object> valuesForAttributes = new HashMap<>();
+        valuesForAttributes = CardMenuUI.ask_energyCard_attributes();
+        
+        this.cardType = CARD_TYPES[2]; //energy
+        this.name = (String)valuesForAttributes.get("name");
+        this.specialType = (String)valuesForAttributes.get("specialType");
+        this.cardNb = (int)valuesForAttributes.get("cardNb");
     }
     
     /**
@@ -36,7 +56,7 @@ public class EnergyCard extends Card {
     public String toString() {
         String cardInformation = "";
         
-        cardInformation += "---------------------------\n Energy Card Information :\n\n";
+        cardInformation += "---------------------------\n Energy Card Information :\n---------------------------\n";
         cardInformation += "| Name : "+this.name+"\n";
         cardInformation += "| Energy type : "+this.specialType+"\n";
         cardInformation += "| Collection card number : "+this.cardNb+"\n";

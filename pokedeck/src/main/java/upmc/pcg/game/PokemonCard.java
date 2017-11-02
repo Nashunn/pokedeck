@@ -37,7 +37,7 @@ public class PokemonCard extends Card {
     }
     
     /**
-     * Fill the card with 
+     * Fill the card with informations given by the user
      */
     private void fill_card() {
         HashMap<String, Object> valuesForAttributes = new HashMap<>();
@@ -62,7 +62,7 @@ public class PokemonCard extends Card {
     public String toString() {
         String cardInformation = "";
         
-        cardInformation += "---------------------------\n Pokemon Card Information :\n\n";
+        cardInformation += "\n---------------------------\n| Pokemon Card Information :\n---------------------------\n";
         cardInformation += "| Name : "+this.name+"\n";
         cardInformation += "| Energy type : "+this.specialType+"\n";
         cardInformation += "| HP : "+this.hp+"\n";
