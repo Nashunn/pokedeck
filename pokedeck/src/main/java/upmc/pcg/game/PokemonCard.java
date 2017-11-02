@@ -54,4 +54,41 @@ public class PokemonCard extends Card {
         this.resistanceType = (String)valuesForAttributes.get("resistanceType");
         this.cardNb = (int)valuesForAttributes.get("cardNb");
     }
+
+    /**
+     * Return all the informations of the card in the form of a string
+     */
+    @Override
+    public String toString() {
+        String cardInformation = "";
+        
+        cardInformation += "---------------------------\n Pokemon Card Information :\n\n";
+        cardInformation += "| Name : "+this.name+"\n";
+        cardInformation += "| Energy type : "+this.specialType+"\n";
+        cardInformation += "| HP : "+this.hp+"\n";
+        cardInformation += "| Stage : "+(this.stage==0?"Basic":this.stage)+"\n";
+        if(this.stage >= 1)
+            cardInformation += "| Evolves from : "+this.evolvesFrom+"\n";
+        cardInformation += "| Attacks : \n";
+        cardInformation += attacks_toString();
+        cardInformation += "| Weakness : "+this.weaknessType+"\n";
+        cardInformation += "| Resistance : "+this.resistanceType+"\n";
+        cardInformation += "| Collection card number : "+this.cardNb+"\n";
+        cardInformation += "---------------------------\n";
+        
+        return cardInformation;
+    }
+    
+    /**
+     * Return all the informations of all attacks in the form of a string
+     */
+    private String attacks_toString() {
+        String string_attacks = "";
+        
+        for(Attack attack : this.attacks) {
+            string_attacks += "|    - "+attack.toString()+"\n";
+        }
+        
+        return string_attacks;
+    }
 }

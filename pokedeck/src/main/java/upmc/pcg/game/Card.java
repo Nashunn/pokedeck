@@ -41,4 +41,9 @@ public abstract class Card {
      * Create a card (pokemon, trainer or energy) with every attributes
      */
     public abstract void create();
+    
+    /**
+     * Display all the informations of the card for the user and return them in the form of a string
+     */
+    public abstract String toString();
 }

@@ -28,4 +28,20 @@ public class EnergyCard extends Card {
     public void create() {
         System.out.println("TODO : creation of energy card");
     }
+    
+    /**
+     * Display all the informations of the card for the user and return them in the form of a string
+     */
+    @Override
+    public String toString() {
+        String cardInformation = "";
+        
+        cardInformation += "---------------------------\n Energy Card Information :\n\n";
+        cardInformation += "| Name : "+this.name+"\n";
+        cardInformation += "| Energy type : "+this.specialType+"\n";
+        cardInformation += "| Collection card number : "+this.cardNb+"\n";
+        cardInformation += "---------------------------\n";
+        
+        return cardInformation;
+    }
 }
