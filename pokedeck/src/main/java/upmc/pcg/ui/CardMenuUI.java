@@ -40,8 +40,6 @@ public final class CardMenuUI {
         int chosenIndex = 1;
         boolean boolIndexOk = false;
         
-        System.out.println("collection size debug : "+collectionGiven.get_size());
-        
         while(!boolIndexOk && collectionGiven.get_size()>=1) {
             try {
                 System.out.println("Select a card : ");

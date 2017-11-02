@@ -35,6 +35,20 @@ public class Attack {
     }
     
     /**
+     * Return the information about the attack in the form of a string
+     */
+    public String toString() {
+        String result = "";
+        
+        for(String energy : this.neededEnergy) {
+            result += "["+energy+"]";
+        }
+        result += " "+this.name+" (-"+this.damage+"hp) : "+this.description;
+        
+        return result;
+    }
+    
+    /**
      * Ask the user how to fill the attacks
      */
     private void fill_attack() {

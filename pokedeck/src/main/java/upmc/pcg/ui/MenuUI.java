@@ -178,7 +178,7 @@ public final class MenuUI {
         currentCard = collection_consult_menu(currentCollection);
         
         if(currentCard != null)
-            System.out.println("card : "+currentCard.toString());
+            System.out.println(currentCard.toString());
         else
             System.out.println("(!) No card selected");
     }
