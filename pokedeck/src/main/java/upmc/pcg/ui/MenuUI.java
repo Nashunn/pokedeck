@@ -169,47 +169,95 @@ public final class MenuUI {
     }
     
     /**
-     * Do all the actions when the user want to consult the collection
-     * in the main menu
+     * Display the collection and ask what actions the user wants to do with it
      */
     public static void action_consult_menu(Collection currentCollection) {
-        Card currentCard = null;
+        System.out.println("****************************");
+        System.out.println("Collection content :\n");
         
-        currentCard = collection_consult_menu(currentCollection);
+        currentCollection.list_all_cards();
         
-        if(currentCard != null)
-            System.out.println(currentCard.toString());
-        else
-            System.out.println("(!) No card selected");
+        collection_consult_subMenu(currentCollection);
+    }
+
+    /**
+     * Submenu that ask the user what type of action he wants to do with his collection
+     */
+    private static void collection_consult_subMenu(Collection collection) {
+        boolean boolQuit = false;
+        
+        while(!boolQuit) {
+            print_collection_consult_subMenu();
+            boolQuit = switch_collection_consult_subMenu(collection);
+        }
+        
     }
     
     /**
-     * Display the content of the collection and ask the user which card he wants to consult
-     * return the chosen card
+     * Display the first text of the subMenu in the collection consult menu
      */
-    public static Card collection_consult_menu(Collection collection) {
-        Card chosenCard = null;
-        String userConsultCard = "";      
+    private static void print_collection_consult_subMenu() {
+        System.out.println("\nProf Oak : What do you want to do now with your collection ?");
+        System.out.println(" 1. Consult a card");
+        System.out.println(" 2. Modify a card");
+        System.out.println(" 3. Delete a card");
+        System.out.println(" 4. Return to main menu");
+    }
+    
+    /**
+     * Ask the player to do a choice and does actions base on the choice made
+     */
+    private static boolean switch_collection_consult_subMenu(Collection collection) {
+        int choiceSubMenu;
+        boolean boolQuit = false;
         
-        System.out.println("****************************");
-        System.out.println("Collection content :\n");
-        collection.list_all_cards();
+        choiceSubMenu = ask_collection_consult_subMenu();
         
-        GameUI.clear_console_buffer(console);
-        while(userConsultCard.equals("") || (!userConsultCard.equals("n") && !userConsultCard.equals("y"))) {
-            System.out.println("Do you want to consult a card ? (y/n)");
-            userConsultCard = console.nextLine();
+        switch(choiceSubMenu) {
+            //Consult a card
+            case 1:
+                System.out.println("(!) TODO");
+                break;
+            //Modify a card
+            case 2:
+                System.out.println("(!) TODO");
+                break;
+            //Delete a card
+            case 3:
+                System.out.println("(!) TODO");
+                break;
+            //Quit the menu
+            case 4:
+                boolQuit = true;
+                break;
+            //Error
+            default:
+                System.out.println("(!) Invalid choice");
+                break;
         }
         
-        if(userConsultCard.equals("y")) {
-            if(collection.get_size() != 0)
-                chosenCard = CardMenuUI.card_consult_menu(collection, false);
-            else
-                 System.out.println("(!) You don't have cards in your collection yet");
+        return boolQuit;
+    }
+    
+    /**
+     * Ask the user to do a choice for the consult collection subMenu
+     */
+    private static int ask_collection_consult_subMenu() {
+        int choice = -1;
+        
+        while(choice<1 || choice>4) {
+            try {
+                System.out.println("Your choice ? ");
+                choice = console.nextInt();
+            }
+            catch (InputMismatchException e) {
+                System.out.print("(!) Select a positive number !\n");
+                GameUI.clear_console_buffer(console);
+            }
         }
         
-        return chosenCard;
-    }    
+        return choice;
+    }
     
     /**
      * Display the messages at the beginning of the creation of a card step by step
