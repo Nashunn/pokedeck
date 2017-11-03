@@ -271,7 +271,7 @@ public final class MenuUI {
         if(collection.get_size() != 0) {
             chosenCardIndex = CardMenuUI.card_consult_menu_index(collection, false);
             
-            if(chosenCardIndex < 0)
+            if(chosenCardIndex >= 0)
                 collection.delete_card(chosenCardIndex);
             else
                 System.out.println("(!) No card selected");

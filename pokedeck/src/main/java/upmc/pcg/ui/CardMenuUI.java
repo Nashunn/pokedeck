@@ -63,7 +63,7 @@ public final class CardMenuUI {
             else
                 System.out.println("(!) This card isn't in the collection");
         }
-       
+
         return chosenIndex;
     }
     
