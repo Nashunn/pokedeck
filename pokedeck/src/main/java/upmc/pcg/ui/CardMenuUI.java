@@ -370,6 +370,7 @@ public final class CardMenuUI {
     public static String confirm_delete_card(String cardName) {
         String response = "";
 
+        GameUI.clear_console_buffer(console);
         while(response.equals("") || (!response.equals("y") && !response.equals("n"))) {
             System.out.println("Prof. Oak : Are you sure you want to delete : "+cardName+" ? (y/n)");
             response = console.nextLine();

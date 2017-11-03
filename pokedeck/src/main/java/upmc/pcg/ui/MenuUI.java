@@ -8,6 +8,7 @@ package upmc.pcg.ui;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.Map;
 import java.util.Scanner;
 import upmc.pcg.game.Attack;
 import upmc.pcg.game.Card;
@@ -79,9 +80,7 @@ public final class MenuUI {
     public static Card add_card_menu() {
         Card createdCard = null;
         
-        //ask what type of card
         createdCard = ask_type_card();
-        //run create() method from card
         createdCard.create();
         
         return createdCard;
@@ -179,6 +178,19 @@ public final class MenuUI {
         
         collection_consult_subMenu(currentCollection);
     }
+    
+    /**
+     * Ask the user to chose which criteria he wants to use, and display a list with the cards.
+     * Ask the user what type of action he wants to do with the list.
+     */
+    public static void action_search_by_criteria(Collection currentCollection) {
+        if(currentCollection.get_size() > 0) {
+            print_search_by_criteria_subMenu();
+            ask_search_by_criteria_subMenu(currentCollection);
+        }
+        else
+            System.out.println("\n(!) The collection is empty for the moment");
+    }
 
     /**
      * Submenu that ask the user what type of action he wants to do with his collection
@@ -187,7 +199,7 @@ public final class MenuUI {
         boolean boolQuit = false;
         
         while(!boolQuit) {
-            print_collection_consult_subMenu();
+            print_action_card_subMenu();
             boolQuit = switch_collection_consult_subMenu(collection);
         }
         
@@ -196,7 +208,7 @@ public final class MenuUI {
     /**
      * Display the first text of the subMenu in the collection consult menu
      */
-    private static void print_collection_consult_subMenu() {
+    private static void print_action_card_subMenu() {
         System.out.println("\nProf Oak : What do you want to do now with your collection ?");
         System.out.println(" 1. Consult a card");
         System.out.println(" 2. Modify a card");
@@ -282,7 +294,7 @@ public final class MenuUI {
     }
     
     /**
-     * 
+     * Display the first text of the subMenu in the collection consult menu 
      */
     public static void print_collection_list(Collection collection) {
         System.out.println("\n****************************");
@@ -309,6 +321,132 @@ public final class MenuUI {
         }
         
         return choice;
+    }
+    
+    /**
+     * Display the first text of the search by criteria subMenu
+     */
+    private static void print_search_by_criteria_subMenu() {
+        System.out.println("\n****************************");
+        System.out.println("Search cards by criteria :\n");
+        System.out.println("Prof. Oak : Which criteria do you want to pick ?");
+        System.out.println(" 1. By name");
+        System.out.println(" 2. By collection card number\n");
+    }
+    
+    /**
+     * Ask the user which filter he wants to apply for the search
+     * and do an action depending on his choice
+     */
+    private static void ask_search_by_criteria_subMenu(Collection collection) {
+        int choice = 0;
+        String criteria = "Unknown";
+        
+        while(choice<1 || choice>2) {
+            try {
+                System.out.println("Your choice ? ");
+                choice = console.nextInt();
+            }
+            catch (InputMismatchException e) {
+                System.out.print("(!) Select a positive number !\n");
+                GameUI.clear_console_buffer(console);
+            }
+        }
+        
+        criteria = ask_criteria_filter();
+        
+        switch_criteria(collection, choice, criteria);
+    }
+    
+    /**
+     * Ask the user to give the filter's value for criteria
+     */
+    private static String ask_criteria_filter() {
+        String result = "";
+        
+        GameUI.clear_console_buffer(console);
+        
+        while(result.equals("")) {
+            System.out.println("Enter the filter's value : ");
+            result = console.nextLine();
+        }
+
+        return result;
+    }
+    
+    /**
+     * Switch user's choice for criteria
+     */
+    private static void switch_criteria(Collection collection, int choice, String criteria) {
+        switch(choice) {
+            case 1:
+                search_card_by_name(collection, criteria);
+                break;
+            case 2:
+                search_card_by_cardNb(collection, Integer.parseInt(criteria));
+                break;
+            default:
+                System.out.println("Your choice ? ");
+                break;
+        }
+    }
+    
+    /**
+     * Explicit
+     */
+    private static void search_card_by_name(Collection collection, String criteria) {
+        HashMap<Integer, Card> searchResult = new HashMap<Integer, Card>();
+        Card currentCard;
+        String currentName;
+        
+        for(int i=0; i<collection.get_size(); i++) {
+            currentCard = collection.get_card(i);
+            currentName = currentCard.get_name();
+            
+            if(currentName.toLowerCase().contains(criteria.toLowerCase()))
+                searchResult.put(i, currentCard);
+        }
+        
+        print_criteria_research(searchResult);
+    }
+    
+    /**
+     * Explicit
+     */
+    private static void search_card_by_cardNb(Collection collection, int criteria) {
+        HashMap<Integer, Card> searchResult = new HashMap<Integer, Card>();
+        Card currentCard;
+        int currentNb;
+        
+        for(int i=0; i<collection.get_size(); i++) {
+            currentCard = collection.get_card(i);
+            currentNb = currentCard.get_cardNb();
+            
+            if(currentNb == criteria)
+                searchResult.put(i, currentCard);
+        }
+        
+        print_criteria_research(searchResult);
+    }
+    
+    /**
+     * Explicit
+     */
+    private static void print_criteria_research(HashMap<Integer, Card> searchResult) {
+        int listIndex = 1;
+        
+        System.out.println("****************************");
+        System.out.println("Search results :\n");
+        
+        if(!searchResult.isEmpty()) {
+            for (Map.Entry<Integer, Card> result : searchResult.entrySet()) {
+                System.out.println(listIndex+". "+result.getValue().get_name());
+                listIndex++;
+            }
+            //TODO : menu pour demander les actions sur chaque carte + envoie de l'index dans collection pour prendre la carte
+        }
+        else
+            System.out.println("(!) No results");
     }
     
     /**

@@ -66,7 +66,7 @@ public class Game {
                 break;
             //Search cards by criteria
             case 3:
-                System.out.println("TODO");
+                MenuUI.action_search_by_criteria(currentCollection);
                 break;
             //Quit the game
             case 4:
