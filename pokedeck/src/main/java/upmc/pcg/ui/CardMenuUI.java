@@ -35,10 +35,10 @@ public final class CardMenuUI {
     }
     
     /**
-     * Return the card selected by the user in a menu
+     * Return the index of the card selected by the user in a menu
      */
-    public static Card card_consult_menu(Collection collectionGiven, boolean onlyPokemonCard) {
-        int chosenIndex = 1;
+    public static int card_consult_menu_index(Collection collectionGiven, boolean onlyPokemonCard) {
+        int chosenIndex = -1;
         boolean boolIndexOk = false;
         
         while(!boolIndexOk && collectionGiven.get_size()>=1) {
@@ -63,8 +63,20 @@ public final class CardMenuUI {
             else
                 System.out.println("(!) This card isn't in the collection");
         }
+       
+        return chosenIndex;
+    }
+    
+    /**
+     * Return the card selected by the user in a menu
+     */
+    public static Card card_consult_menu(Collection collectionGiven, boolean onlyPokemonCard) {
+        int chosenIndex = -1;
+        boolean boolIndexOk = false;
         
-        if(collectionGiven.get_size()<1)
+        chosenIndex = card_consult_menu_index(collectionGiven, onlyPokemonCard);
+        
+        if(chosenIndex < 0)
             return null;
         else
             return collectionGiven.get_card(chosenIndex);
@@ -350,5 +362,19 @@ public final class CardMenuUI {
         }
         
         return result;
+    }
+    
+    /**
+     * Ask the user to confirm if he wants to delete a card
+     */
+    public static String confirm_delete_card(String cardName) {
+        String response = "";
+
+        while(response.equals("") || (!response.equals("y") && !response.equals("n"))) {
+            System.out.println("Prof. Oak : Are you sure you want to delete : "+cardName+" ? (y/n)");
+            response = console.nextLine();
+        }
+        
+        return response;
     }
 }

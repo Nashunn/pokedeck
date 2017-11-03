@@ -47,7 +47,7 @@ public class TrainerCard extends Card {
     public String toString() {
         String cardInformation = "";
         
-        cardInformation += "---------------------------\n Trainer Card Information :\n---------------------------\n";
+        cardInformation += "---------------------------\n| Trainer Card Information :\n---------------------------\n";
         cardInformation += "| Name : "+this.name+"\n";
         cardInformation += "| Trainer type : "+this.specialType+"\n";
         cardInformation += "| Explanation : \n|    "+this.explanation+"\n";

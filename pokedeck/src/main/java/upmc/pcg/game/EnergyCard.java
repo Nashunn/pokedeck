@@ -56,7 +56,7 @@ public class EnergyCard extends Card {
     public String toString() {
         String cardInformation = "";
         
-        cardInformation += "---------------------------\n Energy Card Information :\n---------------------------\n";
+        cardInformation += "---------------------------\n| Energy Card Information :\n---------------------------\n";
         cardInformation += "| Name : "+this.name+"\n";
         cardInformation += "| Energy type : "+this.specialType+"\n";
         cardInformation += "| Collection card number : "+this.cardNb+"\n";

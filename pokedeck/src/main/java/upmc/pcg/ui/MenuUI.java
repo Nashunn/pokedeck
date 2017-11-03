@@ -130,7 +130,7 @@ public final class MenuUI {
             System.out.println(" "+(i+1)+". "+tabTypes[i]);
         }
         
-        while(choice == 0 && !(choice >= 1 && choice <= tabTypes.length)) {
+        while(choice < 1 || choice > tabTypes.length) {
             try {
                 System.out.println("\nYour choice ? ");
                 choice = console.nextInt();
@@ -201,7 +201,7 @@ public final class MenuUI {
         System.out.println(" 1. Consult a card");
         System.out.println(" 2. Modify a card");
         System.out.println(" 3. Delete a card");
-        System.out.println(" 4. Return to main menu");
+        System.out.println(" 4. Return to main menu \n");
     }
     
     /**
@@ -216,7 +216,7 @@ public final class MenuUI {
         switch(choiceSubMenu) {
             //Consult a card
             case 1:
-                System.out.println("(!) TODO");
+                collection_subMenu_consult_card(collection);
                 break;
             //Modify a card
             case 2:
@@ -224,7 +224,7 @@ public final class MenuUI {
                 break;
             //Delete a card
             case 3:
-                System.out.println("(!) TODO");
+                collection_subMenu_delete_card(collection);
                 break;
             //Quit the menu
             case 4:
@@ -237,6 +237,58 @@ public final class MenuUI {
         }
         
         return boolQuit;
+    }
+    
+    /**
+     * Explicit
+     */
+    private static void collection_subMenu_consult_card(Collection collection) {
+        Card chosenCard = null;
+        
+        print_collection_list(collection);
+        
+        if(collection.get_size() != 0) {
+            chosenCard = CardMenuUI.card_consult_menu(collection, false);
+            
+            if(chosenCard != null)
+                System.out.println("\n"+chosenCard.toString());
+            else
+                System.out.println("(!) No card selected");
+        }
+        else
+             System.out.println("(!) You don't have cards in your collection yet");
+        
+    }
+    
+    /**
+     * Explicit
+     */
+    private static void collection_subMenu_delete_card(Collection collection) {
+        int chosenCardIndex = -1;
+        
+        print_collection_list(collection);
+        
+        if(collection.get_size() != 0) {
+            chosenCardIndex = CardMenuUI.card_consult_menu_index(collection, false);
+            
+            if(chosenCardIndex < 0)
+                collection.delete_card(chosenCardIndex);
+            else
+                System.out.println("(!) No card selected");
+        }
+        else
+             System.out.println("(!) You don't have cards in your collection yet");
+        
+    }
+    
+    /**
+     * 
+     */
+    public static void print_collection_list(Collection collection) {
+        System.out.println("\n****************************");
+        System.out.println("Collection content :");
+        collection.list_all_cards();
+        System.out.println("");
     }
     
     /**

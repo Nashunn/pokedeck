@@ -8,6 +8,7 @@ package upmc.pcg.game;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import upmc.pcg.ui.CardMenuUI;
 
 /**
  * Collection represents a pokemon cards collection
@@ -42,8 +43,20 @@ public class Collection {
     /**
      * Add a card in the collection
      */
-    public void add_card(Card newCard){
+    public void add_card(Card newCard) {
         cards.add(newCard);
+    }
+    
+    /**
+     * Delete a card in the collection by its index
+     */
+    public void delete_card(int cardIndex) {
+        String response;
+        
+        response = CardMenuUI.confirm_delete_card(cards.get(cardIndex).get_name());
+        
+        if(response.equals("y"))
+            cards.remove(cardIndex);
     }
        
     /**
