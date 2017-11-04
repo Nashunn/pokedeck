@@ -8,6 +8,7 @@ package upmc.pcg.ui;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 import upmc.pcg.game.Attack;
@@ -209,7 +210,7 @@ public final class MenuUI {
      * Display the first text of the subMenu in the collection consult menu
      */
     private static void print_action_card_subMenu() {
-        System.out.println("\nProf Oak : What do you want to do now with your collection ?");
+        System.out.println("\nProf Oak : What do you want to do now with these cards ?");
         System.out.println(" 1. Consult a card");
         System.out.println(" 2. Modify a card");
         System.out.println(" 3. Delete a card");
@@ -290,7 +291,6 @@ public final class MenuUI {
         }
         else
              System.out.println("(!) You don't have cards in your collection yet");
-        
     }
     
     /**
@@ -386,7 +386,7 @@ public final class MenuUI {
                 search_card_by_cardNb(collection, Integer.parseInt(criteria));
                 break;
             default:
-                System.out.println("Your choice ? ");
+                System.out.println("(!) Select a number in the list ");
                 break;
         }
     }
@@ -395,7 +395,7 @@ public final class MenuUI {
      * Explicit
      */
     private static void search_card_by_name(Collection collection, String criteria) {
-        HashMap<Integer, Card> searchResult = new HashMap<Integer, Card>();
+        LinkedHashMap<Integer, Card> searchResult = new LinkedHashMap<Integer, Card>();
         Card currentCard;
         String currentName;
         
@@ -408,13 +408,14 @@ public final class MenuUI {
         }
         
         print_criteria_research(searchResult);
+        action_criteria_research(collection, searchResult);
     }
     
     /**
      * Explicit
      */
     private static void search_card_by_cardNb(Collection collection, int criteria) {
-        HashMap<Integer, Card> searchResult = new HashMap<Integer, Card>();
+        LinkedHashMap<Integer, Card> searchResult = new LinkedHashMap<Integer, Card>();
         Card currentCard;
         int currentNb;
         
@@ -427,12 +428,26 @@ public final class MenuUI {
         }
         
         print_criteria_research(searchResult);
+        action_criteria_research(collection, searchResult);
+    }
+    
+    /**
+     * Ask the user which actions he wants to make with the result of the search
+     */
+    private static void action_criteria_research(Collection collection, LinkedHashMap<Integer, Card> searchResult) {
+        boolean quitMenu = false;
+        
+        while(!quitMenu) {
+            print_criteria_research(searchResult);
+            print_action_card_subMenu();
+            quitMenu = switch_criteria_search(collection, searchResult);
+        }
     }
     
     /**
      * Explicit
      */
-    private static void print_criteria_research(HashMap<Integer, Card> searchResult) {
+    private static void print_criteria_research(LinkedHashMap<Integer, Card> searchResult) {
         int listIndex = 1;
         
         System.out.println("****************************");
@@ -443,10 +458,87 @@ public final class MenuUI {
                 System.out.println(listIndex+". "+result.getValue().get_name());
                 listIndex++;
             }
-            //TODO : menu pour demander les actions sur chaque carte + envoie de l'index dans collection pour prendre la carte
         }
         else
             System.out.println("(!) No results");
+    }
+    
+    /**
+     * Switch that does the action made by the user for the research by criteria
+     */
+    private static boolean switch_criteria_search(Collection collection, LinkedHashMap<Integer, Card> searchResult) {
+        int choiceSubMenu;
+        boolean boolQuit = false;
+        
+        choiceSubMenu = ask_collection_consult_subMenu();
+        
+        switch(choiceSubMenu) {
+            //Consult a card
+            case 1:
+                criteria_subMenu_consult_card(searchResult);
+                break;
+            //Modify a card
+            case 2:
+                System.out.println("(!) TODO");
+                break;
+            //Delete a card
+            case 3:
+                criteria_subMenu_delete_card(collection, searchResult);
+                break;
+            //Quit the menu
+            case 4:
+                boolQuit = true;
+                break;
+            //Error
+            default:
+                System.out.println("(!) Invalid choice");
+                break;
+        }
+        
+        return boolQuit;
+    }
+    
+    /**
+     * Allow the user to consult a card based on a research list
+     */
+    private static void criteria_subMenu_consult_card(LinkedHashMap<Integer, Card> searchResult) {
+        Card chosenCard = null;
+        
+        print_criteria_research(searchResult);
+        
+        if(!searchResult.isEmpty()) {
+            chosenCard = CardMenuUI.criteria_card_consult_menu(searchResult);
+            
+            if(chosenCard != null)
+                System.out.println("\n"+chosenCard.toString());
+            else
+                System.out.println("(!) No card selected");
+        }
+        else
+             System.out.println("(!) No results available");
+        
+    }
+    
+    /**
+     * Ask the user which card in the list he wants to delete
+     */
+    private static void criteria_subMenu_delete_card(Collection collection, LinkedHashMap<Integer, Card> searchResult) {
+        int chosenCardIndex = -1;
+        
+        print_criteria_research(searchResult);
+        
+        if(!searchResult.isEmpty()) {
+            chosenCardIndex = CardMenuUI.criteria_card_consult_menu_index(searchResult);
+            
+            if(chosenCardIndex >= 0) {
+                collection.delete_card(chosenCardIndex);
+                searchResult.remove(chosenCardIndex);
+            }
+            else
+                System.out.println("(!) No card selected");
+        }
+        else
+             System.out.println("(!) No results available");
     }
     
     /**

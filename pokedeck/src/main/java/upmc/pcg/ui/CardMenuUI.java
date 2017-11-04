@@ -8,6 +8,7 @@ package upmc.pcg.ui;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 import upmc.pcg.game.Attack;
 import upmc.pcg.game.Card;
@@ -377,5 +378,52 @@ public final class CardMenuUI {
         }
         
         return response;
+    }
+    
+    /**
+     * Ask the user which card of the result list he wants to consult and return the index
+     */
+    public static int criteria_card_consult_menu_index(LinkedHashMap<Integer, Card> searchResult) {
+        int chosenIndex = -1;
+        boolean boolIndexOk = false;
+        
+        while(!boolIndexOk && !searchResult.isEmpty()) {
+            try {
+                System.out.println("Select a card : ");
+                chosenIndex = console.nextInt()-1;
+            }
+            catch (InputMismatchException e) {
+                System.out.print("(!) Select a card number !\n");
+                GameUI.clear_console_buffer(console);
+            }
+            
+            if(chosenIndex>=0 && chosenIndex < searchResult.size()) {
+                int indexCollection = (Integer)searchResult.keySet().toArray()[chosenIndex];
+                
+                if(indexCollection>=0 && indexCollection < collection.get_size()) {
+                    chosenIndex = indexCollection;
+                    boolIndexOk = true;
+                }
+            }
+            else
+                System.out.println("(!) This card isn't in the list");
+        }
+
+        return chosenIndex;
+    }
+    
+    /**
+     * Ask the user which card of the result list he wants to consult
+     */
+    public static Card criteria_card_consult_menu(LinkedHashMap<Integer, Card> searchResult) {
+        int chosenIndex = -1;
+        
+        chosenIndex = criteria_card_consult_menu_index(searchResult);
+        
+        if(chosenIndex < 0)
+            return null;
+        else
+            return collection.get_card(chosenIndex);
+
     }
 }
