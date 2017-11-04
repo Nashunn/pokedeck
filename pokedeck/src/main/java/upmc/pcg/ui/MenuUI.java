@@ -233,7 +233,7 @@ public final class MenuUI {
                 break;
             //Modify a card
             case 2:
-                System.out.println("(!) TODO");
+                System.out.println("(!) Not available for the moment");
                 break;
             //Delete a card
             case 3:
@@ -479,7 +479,7 @@ public final class MenuUI {
                 break;
             //Modify a card
             case 2:
-                System.out.println("(!) TODO");
+                System.out.println("(!) Not available for the moment");
                 break;
             //Delete a card
             case 3:
