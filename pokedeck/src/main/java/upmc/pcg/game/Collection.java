@@ -5,7 +5,13 @@
 
 package upmc.pcg.game;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import upmc.pcg.ui.CardMenuUI;
@@ -93,5 +99,31 @@ public class Collection {
         }
         
         return boolVerify;
-    } 
+    }
+    
+    /**
+     * Save the collection in the form of a Json
+     */
+    public void saveCollec(String name) throws IOException {
+        String fileName = "collection_" + name + ".json";
+        FileWriter fileWriter = new FileWriter(fileName);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String jsonResult = gson.toJson(this.cards);
+        
+        System.out.println("Collection saved as : " + fileName);
+        fileWriter.write(jsonResult);
+        fileWriter.close();
+    }
+    
+    /**
+     * Load a collection based on a json file
+     */
+    public void loadCollec(String name) throws IOException {
+        Gson gson = new Gson();
+
+        Card[] cards = gson.fromJson(new FileReader("collection_" + name + ".json"), Card[].class);
+        this.cards = Arrays.asList(cards);
+        list_all_cards();
+    }
+    
 }

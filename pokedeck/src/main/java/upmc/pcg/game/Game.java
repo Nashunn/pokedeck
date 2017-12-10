@@ -5,6 +5,7 @@
 
 package upmc.pcg.game;
 
+import java.io.IOException;
 import java.util.*;
 import upmc.pcg.ui.CardMenuUI;
 import upmc.pcg.ui.MenuUI;
@@ -42,7 +43,7 @@ public class Game {
     /**
      * Main method for the game
      */
-    public void play() {
+    public void play() throws IOException {
         int collectionMenuChoice = -1;
         
         while(!boolQuitGame) {
@@ -54,7 +55,7 @@ public class Game {
     /**
      * Does actions base on the choice made by the player in the collection main menu
      */
-    private void switch_collection_main_menu_choice(int menuChoice) {
+    private void switch_collection_main_menu_choice(int menuChoice) throws IOException {
         switch(menuChoice) {
             //Add a card
             case 1:
@@ -68,8 +69,16 @@ public class Game {
             case 3:
                 MenuUI.action_search_by_criteria(currentCollection);
                 break;
-            //Quit the game
+            //Save the collection
             case 4:
+                currentCollection.saveCollec(currentPlayer);
+                break;
+            //Load a collection
+            case 5:
+                MenuUI.loadCollection(currentCollection);
+                break;
+            //Quit the game
+            case 6:
                 boolQuitGame = true;
                 break;
             //Default

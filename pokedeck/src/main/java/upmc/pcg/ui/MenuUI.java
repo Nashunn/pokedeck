@@ -5,6 +5,7 @@
 
 package upmc.pcg.ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -51,7 +52,9 @@ public final class MenuUI {
         System.out.println(" 1. Add a card");
         System.out.println(" 2. Consult");
         System.out.println(" 3. Search cards by criteria");
-        System.out.println(" 4. Quit the game");
+        System.out.println(" 4. Save collection");
+        System.out.println(" 5. Load collection");
+        System.out.println(" 6. Quit the game");
     }
     
     /**
@@ -69,7 +72,7 @@ public final class MenuUI {
                 System.out.print("(!) Select a number !\n");
                 GameUI.clear_console_buffer(console);
             }
-        }while(!(choice>=1 && choice <=4));
+        }while(!(choice>=1 && choice <=6));
         
         return choice;
     }
@@ -713,5 +716,41 @@ public final class MenuUI {
         } while(result<=0 || result>TrainerCard.TRAINER_TYPES.length);
         
         return result-1;
+    }
+    
+    /**
+     * Explicit
+     */
+    public static void loadCollection(Collection collec) throws IOException {
+        String collecName = "";
+        
+        printLoadCollection();
+        collecName = askLoadCollection();
+        
+        if(collecName != "") {
+            System.out.println("Loading : collection_" + collecName + ".json");
+            collec.loadCollec(collecName);
+        }
+    }
+    
+    /**
+     * Print text to load a collection
+     */
+    private static void printLoadCollection() {
+        System.out.println("****************************");
+        System.out.println("Load collection : ");
+    }
+    
+    /**
+     * Ask the name of the collection to load
+     */
+    private static String askLoadCollection() {
+        String result = "";
+        
+        System.out.println("Enter the name of the collection you want to load : ");
+        GameUI.clear_console_buffer(console);
+        result = console.nextLine();
+        
+        return result;
     }
 }
