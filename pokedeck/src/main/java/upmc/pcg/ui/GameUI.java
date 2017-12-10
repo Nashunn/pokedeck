@@ -5,6 +5,7 @@
 
 package upmc.pcg.ui;
 
+import java.io.IOException;
 import java.util.*;
 import upmc.pcg.game.Game;
 import upmc.pcg.game.PokemonCard;
@@ -20,7 +21,7 @@ public class GameUI {
     /**
      * Initialize the game and start it
      */
-    public void start() {     
+    public void start() throws IOException {     
         print_welcome_msg();
         ArrayList<String> names = ask_players_names();
         game.initialize(names);
